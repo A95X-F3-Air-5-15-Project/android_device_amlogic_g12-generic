@@ -1,17 +1,58 @@
+# Wi-Fi and Bluetooth of every supported box, with mainline drivers.
+#
+# All the drivers are loaded on every box: each one binds only the chips
+# it knows, by SDIO ID (Wi-Fi, MT7668 Bluetooth) or by the DTB (UART
+# Bluetooth, through serdev). What userspace has to know about the box
+# comes from the DTB as ro.boot.* properties (/firmware/android).
+
+on property:ro.boot.wifi_name=*
+    # Picks the Wi-Fi Direct interface in init.amlogic.wifi.rc
+    setprop vendor.wifi_name ${ro.boot.wifi_name}
+
 on boot
-    # Unlike dhd, the MT7668 driver does not use the Amlogic power hooks:
-    # power the SDIO chip up and rescan the bus before loading it.
+    # None of these drivers use the Amlogic power hooks: power the SDIO
+    # module up and rescan the bus before loading them.
     write /sys/class/aml_wifi/power 1
+
+    # MediaTek MT7668
     insmod /vendor/lib/modules/wlan_mt76x8_sdio.ko
-    # BT shares the chip core with Wi-Fi: btmtksdio must start only after
-    # the Wi-Fi probe has finished (insmod above is synchronous), otherwise
-    # its WMT setup races the Wi-Fi patch download and both time out.
-    # insmod does not resolve dependencies, and bluetooth.ko lives on
-    # system_dlkm, which vendor_modprobe may not load from. btmtk.ko only
-    # exists with the out-of-tree btmtksdio, which splits it out.
+
+    # Broadcom/Cypress (brcmfmac)
+    insmod /vendor/lib/modules/brcmutil.ko
+    insmod /vendor/lib/modules/brcmfmac.ko
+
+    # Realtek (rtw88)
+    insmod /vendor/lib/modules/rtw88_core.ko
+    insmod /vendor/lib/modules/rtw88_sdio.ko
+    insmod /vendor/lib/modules/rtw88_8822b.ko
+    insmod /vendor/lib/modules/rtw88_8822bs.ko
+    insmod /vendor/lib/modules/rtw88_8822c.ko
+    insmod /vendor/lib/modules/rtw88_8822cs.ko
+    insmod /vendor/lib/modules/rtw88_8821c.ko
+    insmod /vendor/lib/modules/rtw88_8821cs.ko
+    insmod /vendor/lib/modules/rtw88_8723x.ko
+    insmod /vendor/lib/modules/rtw88_8723d.ko
+    insmod /vendor/lib/modules/rtw88_8723ds.ko
+    insmod /vendor/lib/modules/rtw88_8703b.ko
+    insmod /vendor/lib/modules/rtw88_8723cs.ko
+
+    # Bluetooth. insmod does not resolve dependencies, and bluetooth.ko
+    # lives on system_dlkm, which vendor_modprobe may not load from.
     exec u:r:modprobe:s0 -- /system/bin/modprobe -a -d /system_dlkm/lib/modules bluetooth
+
+    # MT7668: BT shares the chip core with Wi-Fi, so btmtksdio must start
+    # only after the Wi-Fi probe has finished (insmod above is synchronous),
+    # otherwise its WMT setup races the Wi-Fi patch download and both time
+    # out.
     insmod /vendor/lib/modules/btmtk.ko
     insmod /vendor/lib/modules/btmtksdio.ko
+
+    # UART Bluetooth: hci_uart binds the controller the DTB describes on
+    # the UART (hci_bcm for Broadcom, hci_h5 with btrtl for Realtek).
+    insmod /vendor/lib/modules/btbcm.ko
+    insmod /vendor/lib/modules/btrtl.ko
+    insmod /vendor/lib/modules/btqca.ko
+    insmod /vendor/lib/modules/hci_uart.ko
 
 on post-fs
     # The Bluetooth HAL powers the controller through rfkill.

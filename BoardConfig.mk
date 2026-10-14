@@ -13,7 +13,11 @@ BOARD_HAVE_BLUETOOTH := true
 TARGET_BOOTLOADER_BOARD_NAME := g12_generic
 
 ## DTB
-TARGET_DTB_NAME := sm1_s905x3_a95xf3air
+# One DTB per box, all in boot.img; mainline U-Boot picks the one of the box
+# (chainload_board), the first one by default.
+TARGET_DTB_NAME := \
+    sm1_s905x3_generic_a95xf3air \
+    sm1_s905x3_generic_h96maxx3
 TARGET_DTBO_NAME := android_overlay_dt
 BOARD_KERNEL_SEPARATED_DTBO := true
 

@@ -27,20 +27,26 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init-files/init.amlogic.wifi_buildin.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.amlogic.wifi_buildin.rc
 
-## Wi-Fi (MT7668)
-# wlan_mt76x8_sdio is a cfg80211 driver: wpa_supplicant, hostapd and wificond
-# talk nl80211 to it directly, so there is no vendor Wi-Fi HAL.
+## Wi-Fi
+# Every driver (MT7668, brcmfmac, rtw88) is a cfg80211/mac80211 one:
+# wpa_supplicant, hostapd and wificond talk nl80211 to it directly, so there
+# is no vendor Wi-Fi HAL.
 TARGET_HAVE_WIFIHAL := false
 
-# Firmware comes with the driver in kernel/.../vendor/mediatek/mt7668. The
-# driver reads its settings from wifi.cfg; use the tuning of the stock
-# firmware of this box (BT coexistence, efuse calibration) instead of the
-# generic one.
-MT7668_FIRMWARE_PATH := kernel/platform/kernel-5.15/vendor/mediatek/mt7668/firmware
+# Firmware comes with the drivers in kernel/.../vendor/mainline-stack, into
+# /vendor/lib/firmware (firmware_class.path). The MT7668 driver reads its
+# settings from wifi.cfg; use the tuning of the stock A95X F3 Air firmware
+# (BT coexistence, efuse calibration) instead of the generic one.
+MAINLINE_STACK_PATH := kernel/platform/kernel-5.15/vendor/mainline-stack
 
+MAINLINE_STACK_FIRMWARE := $(foreach d,mt7668 rtw88 brcm, \
+    $(call find-copy-subdir-files,*,$(MAINLINE_STACK_PATH)/$(d)/firmware,$(TARGET_COPY_OUT_VENDOR)/lib/firmware))
+
+# Leave out the READMEs and licences, and the generic MT7668 wifi.cfg.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wifi.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/firmware/wifi.cfg \
-    $(filter-out %/lib/firmware/wifi.cfg,$(call find-copy-subdir-files,*,$(MT7668_FIRMWARE_PATH),$(TARGET_COPY_OUT_VENDOR)/lib/firmware))
+    $(foreach f,$(filter-out %/wifi.cfg %.md,$(MAINLINE_STACK_FIRMWARE)), \
+        $(if $(findstring /LICENCE,$(f)),,$(f)))
 
 ## Keylayout (IR)
 PRODUCT_COPY_FILES += \

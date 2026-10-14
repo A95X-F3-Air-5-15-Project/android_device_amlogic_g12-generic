@@ -5,7 +5,6 @@
 #
 
 ## Bluetooth
-bluetooth.device.default_name=A95X F3 Air
 bluetooth.profile.hfp.ag.enabled=false
 bluetooth.profile.opp.enabled=false
 bluetooth.profile.pbap.server.enabled=false
@@ -16,7 +15,3 @@ vendor.media.support.dolbyvision=false
 
 ## SOC
 ro.soc.model=AMLS905X3
-
-## Wi-Fi
-# Lets init.amlogic.wifi.rc pick p2p0 as the Wi-Fi Direct interface
-vendor.wifi_name=mtk
