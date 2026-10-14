@@ -17,10 +17,10 @@ $(call inherit-product, vendor/lineage/config/common_full_tv.mk)
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_BRAND := A95X
+PRODUCT_BRAND := Amlogic
 PRODUCT_DEVICE := g12_generic
-PRODUCT_MANUFACTURER := cyx
-PRODUCT_MODEL := F3 Air
+PRODUCT_MANUFACTURER := amlogic
+PRODUCT_MODEL := G12 Generic
 PRODUCT_NAME := lineage_g12_generic
 
 PRODUCT_GMS_CLIENTID_BASE := android-droid-tv
