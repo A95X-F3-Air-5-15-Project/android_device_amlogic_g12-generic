@@ -14,10 +14,6 @@ PRODUCT_PACKAGES += \
     G12GenericBluetoothOverlay \
     android.hardware.bluetooth-service.default
 
-## Factory
-PRODUCT_HOST_PACKAGES += \
-    aml_image_packer
-
 ## Graphics (Mali)
 PRODUCT_PACKAGES += \
     libGLES_mali \
