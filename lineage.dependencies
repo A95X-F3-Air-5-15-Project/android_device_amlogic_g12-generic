@@ -4,12 +4,12 @@
     "target_path": "device/amlogic/g12-common"
   },
   {
-    "repository": "android_kernel_cyx_a95xf3air-build",
-    "target_path": "kernel/platform/kernel-5.15/vendor/cyx/a95xf3air-build"
+    "repository": "A95X-F3-Air-5-15-Project/android_device_amlogic_g12-generic-build",
+    "target_path": "kernel/platform/kernel-5.15/vendor/amlogic/g12-generic-build"
   },
   {
-    "repository": "MrArtemSid/android_kernel_mediatek_mt7668",
-    "target_path": "kernel/platform/kernel-5.15/vendor/mediatek/mt7668"
+    "repository": "A95X-F3-Air-5-15-Project/android_kernel_mainline-stack",
+    "target_path": "kernel/platform/kernel-5.15/vendor/mainline-stack"
   },
   {
     "repository": "MrArtemSid/android_hardware_amlogic_kernel-modules_openvfd",

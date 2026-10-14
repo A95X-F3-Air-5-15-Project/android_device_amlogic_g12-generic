@@ -5,4 +5,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_a95xf3air.mk
+    $(LOCAL_DIR)/lineage_g12_generic.mk

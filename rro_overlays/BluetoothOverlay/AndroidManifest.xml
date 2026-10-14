@@ -6,7 +6,7 @@
 -->
 <!-- Device specific bluetooth overlays -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.bluetooth.a95xf3air"
+    package="com.android.bluetooth.g12_generic"
     android:versionCode="1"
     android:versionName="1.0">
     <application android:hasCode="false" />

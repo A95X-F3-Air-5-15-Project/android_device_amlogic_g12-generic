@@ -11,7 +11,7 @@
 TARGET_USE_AIDL_BLUETOOTH_HAL := true
 
 PRODUCT_PACKAGES += \
-    A95xf3airBluetoothOverlay \
+    G12GenericBluetoothOverlay \
     android.hardware.bluetooth-service.default
 
 ## Factory
@@ -48,7 +48,7 @@ PRODUCT_COPY_FILES += \
 
 ## Remote (IR mouse mode)
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init-files/init.remote.a95xf3air.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.remote.a95xf3air.rc \
+    $(LOCAL_PATH)/init-files/init.remote.a95x.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.remote.a95x.rc \
     $(foreach f,remote-0xdf00.tab remote-0x4040.tab remote-0x7f80.tab, \
         $(LOCAL_PATH)/remote/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/$(f))
 

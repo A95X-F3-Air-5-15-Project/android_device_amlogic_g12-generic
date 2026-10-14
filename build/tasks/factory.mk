@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-ifneq ($(filter a95xf3air,$(TARGET_DEVICE)),)
+ifneq ($(filter g12_generic,$(TARGET_DEVICE)),)
 
-LOCAL_PATH := device/cyx/a95xf3air
-FACTORY_PATH := device/cyx/a95xf3air/factory
+LOCAL_PATH := device/amlogic/g12-generic
+FACTORY_PATH := device/amlogic/g12-generic/factory
 
 # Only misc belongs in target-files/OTA. The bootloader payloads below are
 # used to start the Amlogic burning environment and must never be OTA-flashed.

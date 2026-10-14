@@ -4,13 +4,13 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/cyx/a95xf3air
+DEVICE_PATH := device/amlogic/g12-generic
 
 ## Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 
 ## Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := a95xf3air
+TARGET_BOOTLOADER_BOARD_NAME := g12_generic
 
 ## DTB
 TARGET_DTB_NAME := sm1_s905x3_a95xf3air
@@ -18,7 +18,7 @@ TARGET_DTBO_NAME := android_overlay_dt
 BOARD_KERNEL_SEPARATED_DTBO := true
 
 ## Kernel
-TARGET_KERNEL_PLATFORM_TARGET := a95xf3air
+TARGET_KERNEL_PLATFORM_TARGET := g12_generic
 BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/vendor_dlkm.modules.load))
 BOOT_KERNEL_MODULES := $(strip $(shell cat $(DEVICE_PATH)/vendor_boot.modules.load))
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(BOOT_KERNEL_MODULES)
@@ -57,4 +57,4 @@ DEVICE_MANIFEST_FILE := $(filter-out device/amlogic/g12-common/manifest_bt.xml,$
 # g12-common points TARGET_KERNEL_SOURCE at its 4.9 kernel, so set the
 # 5.15 platform build only after including it.
 TARGET_KERNEL_VERSION := 5.15
-TARGET_KERNEL_SOURCE := vendor/cyx/a95xf3air-build
+TARGET_KERNEL_SOURCE := vendor/amlogic/g12-generic-build
