@@ -139,3 +139,12 @@ key 398   PROG_RED
 # the TV over CEC when HDMI-CEC volume control is on.
 key 356   TV_POWER
 key 241   TV_INPUT
+
+# H96 Max X3 remotes (stock remote.tab1-3). OK of remote.tab1 sends
+# KEY_ENTER (28); 168/208 (rewind/fast forward) and 87/88 (red/blue) come
+# from the other stock maps.
+key 28    DPAD_CENTER WAKE
+key 87    PROG_RED
+key 88    PROG_BLUE
+key 168   MEDIA_REWIND
+key 208   MEDIA_FAST_FORWARD

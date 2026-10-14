@@ -52,11 +52,23 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/Vendor_0001_Product_0001.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/Vendor_0001_Product_0001.kl
 
-## Remote (IR mouse mode)
+## Remote (IR)
+# The remote tables of every box: each is keyed by the custom code of its
+# remote, so they all coexist in the IR driver.
+#
+# A95X F3 Air: loaded by init.remote.a95x.rc, mainly for the mouse mode,
+# which the DTB maps cannot set.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init-files/init.remote.a95x.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.remote.a95x.rc \
     $(foreach f,remote-0xdf00.tab remote-0x4040.tab remote-0x7f80.tab, \
-        $(LOCAL_PATH)/remote/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/$(f))
+        $(LOCAL_PATH)/remote/a95xf3air/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/$(f))
+
+# H96 Max X3: the stock remote.cfg and remote.tab1-3, which g12-common loads
+# with remotecfg1-3 from persist.vendor.amlogic.remotecfg.path, padded for
+# the 5.15 IR driver (from device/haochuangyi/h96maxx3).
+PRODUCT_COPY_FILES += \
+    $(foreach f,remote.cfg remote.tab1 remote.tab2 remote.tab3, \
+        $(LOCAL_PATH)/remote/h96maxx3/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/remote/$(f))
 
 
 ## OpenVFD

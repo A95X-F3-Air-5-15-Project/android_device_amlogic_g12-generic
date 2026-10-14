@@ -13,5 +13,9 @@ bluetooth.profile.pbap.server.enabled=false
 ro.vendor.platform.support.dolbyvision=false
 vendor.media.support.dolbyvision=false
 
+## Remote
+# Padded copies of the stock H96 Max X3 remote tables (see device.mk)
+persist.vendor.amlogic.remotecfg.path=/vendor/etc/remote
+
 ## SOC
 ro.soc.model=AMLS905X3
